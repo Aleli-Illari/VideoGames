@@ -276,6 +276,7 @@ GROUP BY Nulls
 
 --Before exploring the data we are going to select the data we are going to use 
 --We are going to use the variables with acceptable percentages of nulls and N/A values: Name, Platform, Year of release, Genre, Publisher, NA Sales, EU Sales, JP Sales, other sales, global sales
+
 SELECT Name, Platform,  YEAR(CAST(NULLIF(Year_of_Release, 'N/A') as date)) as year_of_release, Genre, NULLIF(Publisher, 'N/A') as publisher, NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales
 FROM [Portfolio Project]..video_games
 WHERE Year_of_Release BETWEEN '1990' AND '2016' --This restriction is going to be used when necessary
@@ -301,7 +302,7 @@ ORDER BY 3
 
 --Most popular genre per year
 
---- todavía no está listo, probar con partition by EN GENRE PARA QUE EN CADA GENRE BUSQUE EL MAX, O EN AÑO. 
+
 WITH cte_genre AS 
 (SELECT Genre, COUNT(Genre) OVER() as total_games, Year_of_Release
 FROM [Portfolio Project]..video_games
