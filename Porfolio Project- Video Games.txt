@@ -1,0 +1,455 @@
+--DATA CLEANING
+
+-- Checking for data type, classification 
+
+SELECT year_of_release, COUNT(year_of_release) AS games_per_year
+FROM [Portfolio Project]..video_games as VideoGames
+GROUP BY year_of_release
+ORDER BY year_of_release
+
+
+--Checking for nulls
+WITH null_cte AS 
+(SELECT Name,
+		CASE 
+		WHEN Name IS NULL THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--2 null values
+SELECT count(Name) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Name = 'N/A'
+
+--Checking where are N/A or null values
+
+SELECT count(Platform) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Platform = 'N/A'
+
+WITH null_cte AS 
+(SELECT Platform,
+		CASE 
+		WHEN Platform IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+-- 0 _N/A values, 0 nulls
+
+
+--Year of release
+SELECT count(Year_of_Release) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Year_of_Release = 'N/A' 
+
+WITH null_cte AS 
+(SELECT Year_of_Release,
+		CASE 
+		WHEN Year_of_Release IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--269 values with N/A, 0 nulls
+
+
+--Genre
+SELECT count(Genre) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Genre = 'N/A'
+
+WITH null_cte AS 
+(SELECT Genre,
+		CASE 
+		WHEN Genre IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--0 N/A values, 2 nulls
+
+
+--Publisher
+SELECT count(Publisher) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Publisher = 'N/A'
+
+WITH null_cte AS 
+(SELECT Publisher,
+		CASE 
+		WHEN Publisher IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+
+--- 54 N/A values, 0 nulls
+
+
+--***USING CTEs to count nulls in numeric variables
+--NA SALES
+WITH null_cte AS 
+(SELECT NA_Sales,
+		CASE 
+		WHEN NA_Sales IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--No nulls
+
+--EU SALES
+WITH null_cte AS 
+(SELECT EU_Sales,
+		CASE 
+		WHEN EU_Sales IS NULL THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--No nulls
+
+
+--JP SALES
+WITH null_cte AS 
+(SELECT JP_Sales,
+		CASE 
+		WHEN JP_Sales IS NULL THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--No nulls
+
+--OTHER SALES
+WITH null_cte AS 
+(SELECT Other_Sales,
+		CASE 
+		WHEN Other_Sales IS NULL THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--No nulls
+
+-- GLOBAL SALES
+WITH null_cte AS 
+(SELECT Global_Sales,
+		CASE 
+		WHEN Global_Sales IS NULL THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+--No nulls
+
+
+
+--CRITIC SCORE
+
+WITH null_cte AS 
+(SELECT Critic_Score,
+		CASE 
+		WHEN Critic_Score IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+
+--8582 NULLS FROM 16719 ROWS. THIS MEANS WE CAN'T USE THIS COLUMN FOR ANALYSIS
+
+--USER SCORE
+
+WITH null_cte AS 
+(SELECT User_Score,
+		CASE 
+		WHEN User_Score IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+
+--6704 NULLS FROM 16719 ROWS. THIS MEANS WE CAN'T USE THIS COLUMN FOR ANALYSIS
+
+-- DEVELOPER
+SELECT count(Developer) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Developer = 'N/A'
+
+WITH null_cte AS 
+(SELECT Developer,
+		CASE 
+		WHEN Developer IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+
+--- 0 N/A values, 6623 nulls
+
+--RATING
+SELECT count(Rating) 
+FROM [Portfolio Project]..video_games as VideoGames
+WHERE Rating = 'N/A'
+
+WITH null_cte AS 
+(SELECT Rating,
+		CASE 
+		WHEN Rating IS NULL THEN 0
+		--WHEN Critic_Score = 'N/A' THEN 0
+		ELSE 1 
+		END
+		AS Nulls
+FROM [Portfolio Project]..video_games as VideoGames)
+
+SELECT Count(Nulls), Nulls 
+FROM null_cte
+GROUP BY Nulls
+
+--- 0 N/A values, 6779 nulls
+
+---** SUMMARY OF MISSING VALUES
+-- 1) Year of release has 269 missing values. We can work with that, it represents less than 2%
+-- 2) User and Critic Score are variables with too many missing values. 40% and 51% from the total rows, that means they are not reliable variables to analyze, because the results
+	-- might be skewed or biased. 
+
+--              **** EXPLORING THE DATA****
+
+--Before exploring the data we are going to select the data we are going to use 
+--We are going to use the variables with acceptable percentages of nulls and N/A values: Name, Platform, Year of release, Genre, Publisher, NA Sales, EU Sales, JP Sales, other sales, global sales
+SELECT Name, Platform,  YEAR(CAST(NULLIF(Year_of_Release, 'N/A') as date)) as year_of_release, Genre, NULLIF(Publisher, 'N/A') as publisher, NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales
+FROM [Portfolio Project]..video_games
+WHERE Year_of_Release BETWEEN '1990' AND '2016' --This restriction is going to be used when necessary
+ORDER BY year_of_release
+
+
+-- Market Analysis: The video game sales data can be used to analyze market trends and identify popular genres, platforms, and publishers. 
+
+--Identifying popular genres
+
+--changing year of release data type in the table, and converting n/a in nulls also
+UPDATE [Portfolio Project]..video_games
+SET Year_of_Release = YEAR(CAST(NULLIF(Year_of_Release, 'N/A') as date))
+
+--Identifying trends in video games release through the years (1990-2016) by genre
+SELECT  Genre, count(Genre) as total_games, Year_of_Release 
+FROM [Portfolio Project]..video_games
+WHERE   Year_of_Release IS NOT NULL
+		AND Genre IS NOT NULL
+		AND Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Genre, Year_of_Release
+ORDER BY 3
+
+--Most popular genre per year
+
+--- todavía no está listo, probar con partition by EN GENRE PARA QUE EN CADA GENRE BUSQUE EL MAX, O EN AÑO. 
+WITH cte_genre AS 
+(SELECT Genre, COUNT(Genre) OVER() as total_games, Year_of_Release
+FROM [Portfolio Project]..video_games
+WHERE   Year_of_Release IS NOT NULL
+		AND Genre IS NOT NULL
+		AND Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Genre, Year_of_Release )
+
+SELECT Genre, COUNT(Genre) as total_games, Year_of_Release
+FROM [Portfolio Project]..video_games
+WHERE   Year_of_Release IS NOT NULL
+		AND Genre IS NOT NULL
+		AND Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Genre, Year_of_Release
+ORDER BY Year_of_Release
+
+
+--TOP 10 popular platforms
+SELECT TOP 10  Platform, count(Platform) as total_games
+FROM [Portfolio Project]..video_games
+WHERE Platform IS NOT NULL
+		--OR Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Platform
+ORDER BY total_games DESC
+
+--TOP 10 popular publishers
+SELECT TOP 10  Publisher, count(Publisher) as total_games
+FROM [Portfolio Project]..video_games
+WHERE Platform IS NOT NULL
+		--OR Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Publisher
+ORDER BY total_games DESC
+
+-- TOP 10 popular publishers evolution in published games per year
+SELECT Publisher, count(Publisher) as total_games, Year_of_Release
+FROM [Portfolio Project]..video_games
+WHERE Publisher IN ('Activision','Electronic Arts', 'Namco Bandai Games', 'Ubisoft', 'Konami Digital Entertainment', 'THQ', 'Nintendo', 'Sony Computer Entertainment', 'Sega', 'Take-Two Interactive')
+ AND Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Year_of_Release, Publisher
+
+
+--Checking for errors in Global sales
+
+SELECT NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales, (NA_Sales/Global_Sales)*100 as Na_Sales_Percentage,
+	CASE
+			WHEN NA_Sales + EU_Sales + JP_Sales + Other_Sales = Global_Sales THEN 'YES'
+			ELSE 'NO'
+	END checking
+FROM [Portfolio Project]..video_games
+
+SELECT NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales, (NA_Sales + EU_Sales + JP_Sales + Other_Sales) AS global1
+FROM [Portfolio Project]..video_games
+
+-- Sales percentage by market
+SELECT NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales, (NA_Sales/Global_Sales)*100 as Na_Sales_Percentage, (EU_Sales/Global_Sales)*100 as EU_Sales_Percentage,
+		(JP_Sales/Global_Sales)*100 as JP_Sales_Percentage, (Other_Sales/Global_Sales)*100 as Other_Sales_Percentage
+FROM [Portfolio Project]..video_games
+
+
+--Global sales per year by top 10 publisher
+SELECT Publisher, SUM(Global_Sales) as total_sales, Year_of_Release
+FROM [Portfolio Project]..video_games
+WHERE Publisher IN ('Activision','Electronic Arts', 'Namco Bandai Games', 'Ubisoft', 'Konami Digital Entertainment', 'THQ', 'Nintendo', 'Sony Computer Entertainment', 'Sega', 'Take-Two Interactive')
+ --AND Year_of_Release BETWEEN '1990' AND '2016'
+GROUP BY Year_of_Release, Publisher
+
+--Percent of global sales by publisher 
+
+SELECT 
+  Publisher, 
+  SUM(Global_Sales) AS publisher_sales,
+  100 * SUM(Global_Sales) / SUM(SUM(Global_Sales)) OVER () AS percent_total_sales
+FROM 
+  [Portfolio Project]..video_games
+GROUP BY 
+  Publisher
+ORDER BY 
+  publisher_sales DESC
+
+--TOP 5 Publishers with Most Sales in North America
+
+SELECT TOP 5
+  Publisher, 
+  SUM(NA_Sales) AS publisher_sales
+FROM 
+  [Portfolio Project]..video_games
+GROUP BY 
+  Publisher
+ORDER BY 
+  publisher_sales DESC
+
+--TOP 5 Publishers with Most Sales in European Union
+
+SELECT TOP 5
+  Publisher, 
+  SUM(EU_Sales) AS publisher_sales
+FROM 
+  [Portfolio Project]..video_games
+GROUP BY 
+  Publisher
+ORDER BY 
+  publisher_sales DESC
+
+  --TOP 5 Publishers with Most Sales in Japan
+SELECT TOP 5
+  Publisher, 
+  SUM(JP_Sales) AS publisher_sales
+FROM 
+  [Portfolio Project]..video_games
+GROUP BY 
+  Publisher
+ORDER BY 
+  publisher_sales DESC
+
+-- TOP 5 Genres with Most Sales overall 
+SELECT TOP 5
+  Genre, 
+  SUM(Global_Sales) AS genre_sales
+FROM 
+  [Portfolio Project]..video_games
+GROUP BY Genre
+ORDER BY 
+  genre_sales DESC
+
+-- TOP 5 Genres with Most Sales overall and the most popular game by sales in that genre
+
+  SELECT TOP 5
+  v.Genre, 
+  SUM(v.Global_Sales) AS genre_sales,
+  MAXCASE.Name AS MostPopularGame
+FROM 
+  [Portfolio Project]..video_games v
+JOIN
+  (
+    SELECT Genre, MAX(Global_Sales) AS MaxSales
+    FROM [Portfolio Project]..video_games
+    GROUP BY Genre
+  ) MaxSalesByGenre ON v.Genre = MaxSalesByGenre.Genre AND v.Global_Sales = MaxSalesByGenre.MaxSales
+JOIN 
+  [Portfolio Project]..video_games MAXCASE ON v.Genre = MAXCASE.Genre AND v.Global_Sales = MAXCASE.Global_Sales
+GROUP BY v.Genre, MAXCASE.Name
+ORDER BY 
+  genre_sales DESC
+
+-- Most Popular Genre by Location
+SELECT
+  Genre, sum(NA_Sales) as Total_Na_Sales, sum(EU_Sales) as Total_EU_Sales, sum (JP_Sales) as Total_JP_Sales
+FROM 
+  [Portfolio Project]..video_games
+WHERE Genre is not NULL
+GROUP BY Genre
